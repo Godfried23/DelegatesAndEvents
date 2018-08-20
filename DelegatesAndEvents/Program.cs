@@ -28,8 +28,14 @@ namespace DelegatesAndEvents
             //Console.WriteLine(finalHours);
 
             var worker = new Worker();
-            worker.WorkPerformed += new EventHandler<WorkPerformedEventArgs>(Worker_WorkPerformed);
-            worker.WorkCompleted += new EventHandler(Worker_WorkCompleted);
+            // This is the manual way of hooking up the event handlers
+            //worker.WorkPerformed += new EventHandler<WorkPerformedEventArgs>(Worker_WorkPerformed);
+            //worker.WorkCompleted += new EventHandler(Worker_WorkCompleted);
+
+            // This is how its done using Delegate Inference
+            worker.WorkPerformed += Worker_WorkPerformed; // The compiler already knows how the events and they types are set up in the Worker class,
+            worker.WorkCompleted += Worker_WorkCompleted; // so we don't need all the extra code
+
             worker.DoWork(8, WorkType.GenerateReports);
         }
 
