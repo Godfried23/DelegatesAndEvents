@@ -33,21 +33,28 @@ namespace DelegatesAndEvents
             //worker.WorkCompleted += new EventHandler(Worker_WorkCompleted);
 
             // This is how its done using Delegate Inference
-            worker.WorkPerformed += Worker_WorkPerformed; // The compiler already knows how the events and they types are set up in the Worker class,
+            //worker.WorkPerformed += Worker_WorkPerformed; // The compiler already knows how the events and they types are set up in the Worker class,
             worker.WorkCompleted += Worker_WorkCompleted; // so we don't need all the extra code
+
+            // This is how its done using an Anonymous Method.
+            worker.WorkPerformed += delegate (object sender, WorkPerformedEventArgs e)
+            {
+                Console.WriteLine("Hours worked: " + e.Hours + " " + e.WorkType);
+            };
 
             worker.DoWork(8, WorkType.GenerateReports);
         }
 
-        static void Worker_WorkPerformed(object sender, WorkPerformedEventArgs e)
-        {
-            Console.WriteLine("Hours worked: " + e.Hours + " " + e.WorkType);
-        }
+        //static void Worker_WorkPerformed(object sender, WorkPerformedEventArgs e)
+        //{
+        //    Console.WriteLine("Hours worked: " + e.Hours + " " + e.WorkType);
+        //}
 
         static void Worker_WorkCompleted(object sender, EventArgs e)
         {
             Console.WriteLine("Worker is done");
         }
+
         //static void DoWork(WorkPerformedHandler del)
         //{
         //    del(12, WorkType.GoToMeetings);
