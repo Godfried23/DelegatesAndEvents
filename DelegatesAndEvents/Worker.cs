@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
+    //public delegate int WorkPerformedHandler(object sender, WorkPerformedEventArgs e);
     public class Worker
     {
-        public event WorkPerformedHandler WorkPerformed;
+        public event EventHandler<WorkPerformedEventArgs> WorkPerformed;
         public event EventHandler WorkCompleted;
 
         public void DoWork(int hours, WorkType workType)
@@ -29,10 +30,10 @@ namespace DelegatesAndEvents
 
         protected virtual void OnWorkPerformed(int hours, WorkType workType)
         {
-            var del = WorkPerformed as WorkPerformedHandler; // The event cast as the delegate
+            var del = WorkPerformed as EventHandler<WorkPerformedEventArgs>; // The event cast as the delegate
             if (del != null)
             {
-                del(hours, workType);
+                del(this, new WorkPerformedEventArgs(hours, workType));
             }
         }
 
