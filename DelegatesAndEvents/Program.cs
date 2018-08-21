@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
@@ -13,7 +9,24 @@ namespace DelegatesAndEvents
     {
         static void Main(string[] args)
         {
-            var data = new ProcessData();
+            var custs = new List<Customer>
+            {
+                new Customer { City = "Phoenix", FirstName = "John", LastName = "Doe", ID = 1},
+                new Customer { City = "Phoenix", FirstName = "Jane", LastName = "Doe", ID = 500},
+                new Customer { City = "Seattle", FirstName = "Suki", LastName = "Pizzoro", ID = 3},
+                new Customer { City = "New York City", FirstName = "Michelle", LastName = "Smith", ID = 4}
+            };
+
+            var phxCusts = custs
+                .Where(c => c.City == "Phoenix" && c.ID < 500)
+                .OrderBy(c => c.FirstName);f
+
+            foreach (var cust in phxCusts)
+            {
+                Console.WriteLine(cust.FirstName);
+            }
+
+            //var data = new ProcessData();
 
             // Using Lambdas with custom Delegates
             //BizRulesDelegate addDel = (x, y) => x + y;
@@ -28,10 +41,10 @@ namespace DelegatesAndEvents
             //data.ProcessAction(2, 3, myMultiplyAction);
 
             // Using Func<T, TResult>
-            Func<int, int, int> funcAddDel = (x, y) => x + y;
-            Func<int, int, int> funcMultiplyDel = (x, y) => x * y;
-            data.ProcessFunc(2, 3, funcAddDel);
-            data.ProcessFunc(2, 3, funcMultiplyDel);
+            //Func<int, int, int> funcAddDel = (x, y) => x + y;
+            //Func<int, int, int> funcMultiplyDel = (x, y) => x * y;
+            //data.ProcessFunc(2, 3, funcAddDel);
+            //data.ProcessFunc(2, 3, funcMultiplyDel);
 
             var worker = new Worker();
 
