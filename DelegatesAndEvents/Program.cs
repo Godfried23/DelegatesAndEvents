@@ -13,17 +13,25 @@ namespace DelegatesAndEvents
     {
         static void Main(string[] args)
         {
-            BizRulesDelegate addDel = (x, y) => x + y;
-            BizRulesDelegate multiplyDel = (x, y) => x * y;
-
             var data = new ProcessData();
-            data.Process(2, 3, addDel);
-            data.Process(2, 3, multiplyDel);
 
-            Action<int, int> myAction = (x, y) => Console.WriteLine(x + y);
-            Action<int, int> myMultiplyAction = (x, y) => Console.WriteLine(x * y);
-            data.ProcessAction(2, 3, myAction);
-            data.ProcessAction(2, 3, myMultiplyAction);
+            // Using Lambdas with custom Delegates
+            //BizRulesDelegate addDel = (x, y) => x + y;
+            //BizRulesDelegate multiplyDel = (x, y) => x * y;
+            //data.Process(2, 3, addDel);
+            //data.Process(2, 3, multiplyDel);
+
+            // Using Action<T>
+            //Action<int, int> myAction = (x, y) => Console.WriteLine(x + y);
+            //Action<int, int> myMultiplyAction = (x, y) => Console.WriteLine(x * y);
+            //data.ProcessAction(2, 3, myAction);
+            //data.ProcessAction(2, 3, myMultiplyAction);
+
+            // Using Func<T, TResult>
+            Func<int, int, int> funcAddDel = (x, y) => x + y;
+            Func<int, int, int> funcMultiplyDel = (x, y) => x * y;
+            data.ProcessFunc(2, 3, funcAddDel);
+            data.ProcessFunc(2, 3, funcMultiplyDel);
 
             var worker = new Worker();
 
